@@ -45,6 +45,27 @@ class ConfigTests(unittest.TestCase):
             with self.assertRaisesRegex(ConfigError, "at least one query"):
                 load_config(path)
 
+    def test_rejects_invalid_timezone(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            path = initialize(Path(temp), preset="blank")
+            data = json.loads(path.read_text(encoding="utf-8"))
+            data["project"]["timezone"] = "Not/A-Timezone"
+            path.write_text(json.dumps(data), encoding="utf-8")
+            with self.assertRaisesRegex(ConfigError, "Invalid project.timezone"):
+                load_config(path)
+
+    def test_rejects_non_object_source_without_crashing_doctor(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            path = initialize(Path(temp), preset="blank")
+            data = json.loads(path.read_text(encoding="utf-8"))
+            data["sources"]["crossref"] = True
+            path.write_text(json.dumps(data), encoding="utf-8")
+            with self.assertRaisesRegex(ConfigError, "sources.crossref must be an object"):
+                load_config(path)
+            ok, checks = doctor(path)
+            self.assertFalse(ok)
+            self.assertIn("sources.crossref must be an object", checks[-1]["detail"])
+
     def test_invalid_json_reports_location(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
             path = Path(temp) / "bad.json"

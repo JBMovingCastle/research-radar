@@ -8,6 +8,7 @@ import sys
 from importlib import resources
 from pathlib import Path
 from typing import Any
+from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 
 
 CONFIG_NAME = "research-radar.config.json"
@@ -53,6 +54,13 @@ def validate_config(config: dict[str, Any], root: Path) -> None:
     project = config.get("project")
     if not isinstance(project, dict) or not str(project.get("name", "")).strip():
         raise ConfigError("project.name is required.")
+    timezone_name = str(project.get("timezone", "")).strip()
+    if not timezone_name:
+        raise ConfigError("project.timezone is required.")
+    try:
+        ZoneInfo(timezone_name)
+    except ZoneInfoNotFoundError as exc:
+        raise ConfigError(f"Invalid project.timezone: {timezone_name!r}") from exc
     tracks = config.get("tracks")
     if not isinstance(tracks, list) or not tracks:
         raise ConfigError("At least one track is required.")
@@ -86,7 +94,12 @@ def validate_config(config: dict[str, Any], root: Path) -> None:
     required_weights = {"relevance", "source_quality", "recency", "impact", "novelty"}
     if set(weights) != required_weights or any(not isinstance(weights[key], (int, float)) or weights[key] < 0 for key in required_weights):
         raise ConfigError(f"score_weights must define non-negative values for {sorted(required_weights)}.")
-    for source in config.get("target_sources", []):
+    target_sources = config.get("target_sources", [])
+    if not isinstance(target_sources, list):
+        raise ConfigError("target_sources must be a list.")
+    for source in target_sources:
+        if not isinstance(source, dict):
+            raise ConfigError("Each target_sources entry must be an object.")
         issn = str(source.get("issn", "")).strip()
         if issn and not ISSN_RE.match(issn):
             raise ConfigError(f"Invalid ISSN: {issn!r}. Use NNNN-NNNN.")
@@ -99,6 +112,9 @@ def validate_config(config: dict[str, Any], root: Path) -> None:
     sources = config.get("sources")
     if not isinstance(sources, dict):
         raise ConfigError("sources is required.")
+    for name in ("crossref", "arxiv", "semantic_scholar", "openalex"):
+        if name in sources and not isinstance(sources[name], dict):
+            raise ConfigError(f"sources.{name} must be an object.")
     built_in_enabled = any(
         bool(sources.get(name, {}).get("enabled"))
         for name in ("crossref", "arxiv", "semantic_scholar", "openalex")
@@ -111,6 +127,8 @@ def validate_config(config: dict[str, Any], root: Path) -> None:
         if not isinstance(entries, list):
             raise ConfigError(f"sources.{group} must be a list.")
         for entry in entries:
+            if not isinstance(entry, dict):
+                raise ConfigError(f"Each sources.{group} entry must be an object.")
             name = str(entry.get("name", "")).strip().lower()
             url = str(entry.get("url", "")).strip()
             if not name or name in names:

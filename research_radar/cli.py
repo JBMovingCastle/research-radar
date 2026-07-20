@@ -33,7 +33,7 @@ def build_parser() -> argparse.ArgumentParser:
     run = sub.add_parser("run", help="Collect, select, and write one daily Markdown brief.")
     run.add_argument("--config", default=CONFIG_NAME)
     run.add_argument("--date", help="YYYY-MM-DD; defaults to configured local date.")
-    run.add_argument("--force", action="store_true", help="Replace today's brief and append a new ledger record.")
+    run.add_argument("--force", action="store_true", help="Replace today's brief; existing same-day ledger entries are kept unique.")
     run.add_argument("--json", action="store_true")
 
     send = sub.add_parser("deliver", help="Deliver an existing brief through local, stdout, or optional Feishu.")
