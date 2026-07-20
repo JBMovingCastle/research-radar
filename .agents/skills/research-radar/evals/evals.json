@@ -1,0 +1,23 @@
+{
+  "skill_name": "research-radar",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "帮我把研究方向改成人机协作和装配式建筑机器人，再加 Automation in Construction 的 ISSN，但不要动保存目录。",
+      "expected_output": "Edits only the requested config fields, validates the config, and reports the target journal mode without exposing secrets.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "生成今天的研究日报。Semantic Scholar 如果限流也继续，最后告诉我哪些来源没覆盖到。",
+      "expected_output": "Runs the public CLI, preserves provider isolation, produces one local brief, and reports partial coverage honestly.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "每天上午8:30自动跑这个雷达，保存到本地 Obsidian，不要把日报推回 GitHub。",
+      "expected_output": "Creates or proposes a local Codex automation using the repository path and explicitly excludes committing personal outputs.",
+      "files": []
+    }
+  ]
+}

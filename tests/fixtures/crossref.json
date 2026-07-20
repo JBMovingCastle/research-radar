@@ -1,0 +1,17 @@
+{
+  "message": {
+    "items": [
+      {
+        "DOI": "10.1000/example",
+        "title": ["Human-robot collaboration for modular construction"],
+        "author": [{"given": "Ada", "family": "Example"}],
+        "abstract": "A modular construction study of collaborative robot assembly.",
+        "published-online": {"date-parts": [[2026, 7, 20]]},
+        "container-title": ["Automation in Construction"],
+        "ISSN": ["0926-5805"],
+        "URL": "https://doi.org/10.1000/example",
+        "is-referenced-by-count": 3
+      }
+    ]
+  }
+}

@@ -1,0 +1,105 @@
+{
+  "config_version": 1,
+  "project": {
+    "name": "CI3 Lab",
+    "full_name": "Collaborative Intelligence with Construction Informatics in Construction Industrialization",
+    "timezone": "Asia/Shanghai",
+    "language": "zh-CN",
+    "brief_title": "CI3研究简报"
+  },
+  "windows": {"new_days": 30, "influence_days": 365},
+  "selection": {
+    "daily_limit": 5,
+    "focus_quota": 3,
+    "minimum_score": 42,
+    "deep_analysis_threshold": 72,
+    "venue_mode": "prefer"
+  },
+  "score_weights": {
+    "relevance": 40,
+    "source_quality": 25,
+    "recency": 15,
+    "impact": 10,
+    "novelty": 10
+  },
+  "context_keywords": [
+    "construction industrialization", "industrialized construction",
+    "modular construction", "offsite construction", "prefabricated construction",
+    "construction informatics", "smart construction", "建筑工业化", "模块化建筑",
+    "装配式建筑", "智能建造", "施工信息学"
+  ],
+  "exclusion_keywords": [
+    "sponsored", "advertorial", "limited time offer", "buy now", "限时优惠", "立即购买"
+  ],
+  "tracks": [
+    {
+      "id": "distributed_collaboration",
+      "name": "分布式协作、质检、安全与碳监测",
+      "keywords": ["blockchain", "distributed collaboration", "inspection planning", "safety monitoring", "carbon monitoring", "区块链", "分布式协作", "质检", "安全监测", "碳监测"],
+      "queries": ["modular construction blockchain collaboration inspection", "industrialized construction distributed safety monitoring", "modular construction carbon monitoring collaboration"]
+    },
+    {
+      "id": "human_robot_collaboration",
+      "name": "人机协作与模块化生产机器人",
+      "keywords": ["human-robot collaboration", "collaborative robot", "cobot", "robotic assembly", "robotic construction", "人机协作", "协作机器人", "机器人装配", "建筑机器人"],
+      "queries": ["modular construction human-robot collaboration", "offsite construction collaborative robot assembly", "prefabricated construction production robotics"]
+    },
+    {
+      "id": "knowledge_workpackaging",
+      "name": "施工信息学、知识集成与动态工作包",
+      "keywords": ["construction informatics", "knowledge graph", "knowledge integration", "work packaging", "collaborative intelligence", "施工信息学", "知识图谱", "动态工作包", "协同智能"],
+      "queries": ["industrialized construction knowledge graph collaboration", "modular construction dynamic work packaging", "construction informatics collaborative intelligence"]
+    },
+    {
+      "id": "configuration_scheduling_maintenance",
+      "name": "交互式配置、智能调度与维护优化",
+      "keywords": ["interactive configuration", "production scheduling", "intelligent scheduling", "maintenance optimization", "predictive maintenance", "交互式配置", "生产调度", "维护优化", "预测性维护"],
+      "queries": ["modular building interactive configuration", "offsite construction production scheduling", "modular building maintenance optimization"]
+    }
+  ],
+  "rotation": {
+    "monday": "distributed_collaboration",
+    "tuesday": "human_robot_collaboration",
+    "wednesday": "knowledge_workpackaging",
+    "thursday": "configuration_scheduling_maintenance",
+    "friday": "cross_cutting",
+    "saturday": "industry_evidence",
+    "sunday": "weekly_balance"
+  },
+  "authors": [
+    {"name": "Xiao Li", "orcid": "0000-0001-9702-4153", "openalex_id": ""}
+  ],
+  "seed_papers": {"positive": [], "negative": []},
+  "target_sources": [
+    {"name": "Automation in Construction", "issn": "0926-5805", "openalex_id": ""},
+    {"name": "Advanced Engineering Informatics", "issn": "1474-0346", "openalex_id": ""},
+    {"name": "Journal of Construction Engineering and Management", "issn": "0733-9364", "openalex_id": ""},
+    {"name": "Journal of Management in Engineering", "issn": "0742-597X", "openalex_id": ""}
+  ],
+  "sources": {
+    "crossref": {"enabled": true, "mailto": ""},
+    "arxiv": {"enabled": true, "categories": ["cs.RO", "cs.AI", "cs.CY"]},
+    "semantic_scholar": {"enabled": true, "recommendations_enabled": true, "api_key_env": "S2_API_KEY"},
+    "openalex": {"enabled": false, "api_key_env": "OPENALEX_API_KEY"},
+    "feeds": [],
+    "web_pages": [
+      {"name": "CI3 Lab Research", "url": "https://cicubelab.civil.hku.hk/research/", "authority": "university", "max_items": 8},
+      {"name": "Hong Kong CIC Innovation", "url": "https://www.cic.hk/eng/main/innovation/", "authority": "industry_body", "max_items": 8}
+    ]
+  },
+  "delivery": {
+    "default": "local",
+    "feishu": {"user_id_env": "FEISHU_USER_ID", "command": "lark-cli"}
+  },
+  "paths": {
+    "briefs_dir": "10-daily-briefs",
+    "topics_dir": "20-topics",
+    "runs_dir": "90-system/runs",
+    "ledger_file": "90-system/index/recommendation-ledger.jsonl"
+  },
+  "network": {
+    "timeout_seconds": 20,
+    "max_retries": 1,
+    "user_agent": "research-radar/0.1.0 (public academic research tool)"
+  }
+}

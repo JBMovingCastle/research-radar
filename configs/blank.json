@@ -1,0 +1,33 @@
+{
+  "config_version": 1,
+  "project": {
+    "name": "My Research Group",
+    "full_name": "My Research Group",
+    "timezone": "Asia/Shanghai",
+    "language": "zh-CN",
+    "brief_title": "每日研究简报"
+  },
+  "windows": {"new_days": 30, "influence_days": 365},
+  "selection": {"daily_limit": 5, "focus_quota": 3, "minimum_score": 35, "deep_analysis_threshold": 72, "venue_mode": "prefer"},
+  "score_weights": {"relevance": 40, "source_quality": 25, "recency": 15, "impact": 10, "novelty": 10},
+  "context_keywords": ["artificial intelligence"],
+  "exclusion_keywords": ["sponsored", "advertorial"],
+  "tracks": [
+    {"id": "main", "name": "主要研究方向", "keywords": ["artificial intelligence"], "queries": ["artificial intelligence research"]}
+  ],
+  "rotation": {"monday": "main", "tuesday": "main", "wednesday": "main", "thursday": "main", "friday": "main", "saturday": "main", "sunday": "main"},
+  "authors": [],
+  "seed_papers": {"positive": [], "negative": []},
+  "target_sources": [],
+  "sources": {
+    "crossref": {"enabled": true, "mailto": ""},
+    "arxiv": {"enabled": true, "categories": []},
+    "semantic_scholar": {"enabled": true, "recommendations_enabled": true, "api_key_env": "S2_API_KEY"},
+    "openalex": {"enabled": false, "api_key_env": "OPENALEX_API_KEY"},
+    "feeds": [],
+    "web_pages": []
+  },
+  "delivery": {"default": "local", "feishu": {"user_id_env": "FEISHU_USER_ID", "command": "lark-cli"}},
+  "paths": {"briefs_dir": "10-daily-briefs", "topics_dir": "20-topics", "runs_dir": "90-system/runs", "ledger_file": "90-system/index/recommendation-ledger.jsonl"},
+  "network": {"timeout_seconds": 20, "max_retries": 1, "user_agent": "research-radar/0.1.0 (public academic research tool)"}
+}

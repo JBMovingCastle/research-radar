@@ -1,0 +1,23 @@
+{
+  "skill_name": "paper-analyze",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "把今天雷达第一篇论文做一下深入分析，但候选文件里只有摘要。",
+      "expected_output": "Writes an abstract-level analysis into the same daily brief and never claims full-text reading.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "第一篇没有PDF，换第二篇给我精读吧。",
+      "expected_output": "Refuses silent substitution, explains the first-item rule, and offers abstract-level analysis or explicit user-directed scope change.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "全文链接能打开，帮我总结方法、结果和对CI3的意义。",
+      "expected_output": "Reads the actual lawful full text before using the full-text label and separates reported results from relevance inference.",
+      "files": []
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:arxiv="http://arxiv.org/schemas/atom">
+  <entry>
+    <id>https://arxiv.org/abs/2607.00001v1</id>
+    <title>Robotic assembly for prefabricated construction</title>
+    <summary>We study human robot collaboration in prefabricated construction.</summary>
+    <published>2026-07-20T10:00:00Z</published>
+    <author><name>Ada Example</name></author>
+    <link href="https://arxiv.org/pdf/2607.00001v1" type="application/pdf" />
+    <arxiv:doi>10.1000/arxiv-example</arxiv:doi>
+  </entry>
+</feed>
