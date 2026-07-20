@@ -102,7 +102,7 @@ python3 -m research_radar validate
 python3 -m research_radar doctor
 ```
 
-确认无误后再运行 `python3 -m research_radar run --force`。完整字段映射、示例和注意事项见[配置手册](CONFIGURATION.md)。
+确认无误后再运行 `python3 -m research_radar run`；只有需要重建已经存在的当天日报时才加 `--force`。完整字段映射、示例和注意事项见[配置手册](CONFIGURATION.md)。
 
 ## 在 Obsidian 中查看
 
