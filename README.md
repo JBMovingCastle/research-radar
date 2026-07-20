@@ -138,8 +138,4 @@ python3 -m research_radar deliver --date 2026-07-21 --channel feishu
 
 如果你需要周报，可基于每天的 Markdown 日报再做人工汇总或另行实现周度汇总规则；当前版本未提供自动周报命令。
 
-## 分享材料与协议
-
-分享材料位于 [presentation/Research-Radar-分享版_v0.1.0.pptx](presentation/Research-Radar-分享版_v0.1.0.pptx)，配套讲稿见 [presentation/六页分享讲稿.md](presentation/六页分享讲稿.md)。
-
 [MIT](LICENSE) © 2026 JBMovingCastle

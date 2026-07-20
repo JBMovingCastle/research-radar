@@ -17,7 +17,7 @@ python3 -m research_radar run
 - 七类采集适配器和统一候选模型。
 - 关键词、方向、作者、种子论文、期刊/ISSN、RSS、网页与输出目录配置。
 - 每日唯一 Markdown 日报、来源状态、去重账本和可选飞书交付。
-- 两个 Codex Skills、完整中文教程、脱敏示例和六页分享材料。
+- 两个 Codex Skills、完整中文教程和脱敏示例。
 
 ## 重要边界
 
