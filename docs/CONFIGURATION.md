@@ -2,6 +2,30 @@
 
 配置文件是仓库根目录的 `research-radar.config.json`。JSON 不支持注释；修改后用 `python3 -m research_radar validate` 检查。
 
+个人使用时应修改初始化生成的 `research-radar.config.json`，不要直接修改 `configs/ci3.json` 或 `configs/blank.json`。后两者是内置模板，供首次初始化和版本发布使用。
+
+## 从需求找到配置字段
+
+| 想修改的内容 | 配置字段 |
+| --- | --- |
+| 项目名称、日报标题 | `project.name`、`project.brief_title` |
+| 总体研究语境 | `context_keywords` |
+| 研究方向 | `tracks` |
+| 方向关键词 | `tracks[].keywords` |
+| 实际检索式 | `tracks[].queries` |
+| 每日推荐数量 | `selection.daily_limit` |
+| 入选门槛 | `selection.minimum_score` |
+| 重点期刊 | `target_sources` |
+| 只看目标期刊 | `selection.venue_mode: "only"` |
+| 优先目标期刊但保留其他结果 | `selection.venue_mode: "prefer"` |
+| 关注作者 | `authors` |
+| RSS/Atom 订阅 | `sources.feeds` |
+| 机构网页 | `sources.web_pages` |
+| 摘要长度、日报字段和章节写法 | `report` |
+| 日报、运行记录和账本位置 | `paths` |
+
+最有效的配置需求通常包含四件事：研究什么、每天需要几条、重点关注或排除什么、日报给谁看。只说“优化一下关键词”通常不足以形成稳定检索式。
+
 ## 每日数量与报告写法
 
 默认每天最多选取 5 项；`selection.daily_limit` 可由使用者设置为 1 到 20。报告的展示顺序、摘要长度、章节标题、开场说明和写作要求可直接通过 `report` 修改：
@@ -50,6 +74,30 @@
 ```
 
 候选内容需要命中研究方向，同时命中研究语境；目标期刊文章可作为例外进入评分。这能减少“只含AI、机器人或区块链，但与本组研究无关”的噪声。
+
+例如增加“工程教育与生成式 AI”方向，可在 `tracks` 数组中加入：
+
+```json
+{
+  "id": "engineering_education_ai",
+  "name": "工程教育与生成式 AI",
+  "keywords": [
+    "engineering education",
+    "generative AI",
+    "large language model",
+    "AI-assisted learning",
+    "工程教育",
+    "生成式人工智能"
+  ],
+  "queries": [
+    "engineering education generative AI",
+    "engineering education large language model",
+    "AI-assisted learning engineering education"
+  ]
+}
+```
+
+不要只使用 `AI`、`robot`、`blockchain` 等过宽的单词。应在 `context_keywords` 和 `queries` 中同时说明所属学科、应用对象或研究场景，否则噪声会明显增加。
 
 ## 期刊和渠道
 
@@ -145,3 +193,14 @@ export OPENALEX_API_KEY="..."
 ```
 
 配置中只保存环境变量名称，例如 `"api_key_env": "OPENALEX_API_KEY"`，不得保存真实密钥。
+
+## 修改时的安全规则
+
+- JSON 必须使用英文双引号，不支持注释或尾随逗号。
+- 不要把 API Key、飞书收件人 ID 或其他个人身份信息写入配置。
+- `paths` 只接受项目内部的相对路径，不接受绝对路径或 `..`。
+- `selection.daily_limit` 支持 1 到 20；提高数量也会增加阅读负担和消息长度。
+- `selection.venue_mode: "only"` 可能导致结果明显减少，通常先使用 `"prefer"`。
+- 修改后先执行 `python3 -m research_radar validate` 和 `python3 -m research_radar doctor`，再决定是否运行检索。
+
+如果使用 Codex，可以直接让它先读取本手册、只修改相关字段，并明确要求“修改后不要运行检索”。完整对话示例见[快速开始](QUICKSTART.md#方式一直接让-codex-帮你操作)。

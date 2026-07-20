@@ -88,6 +88,8 @@ python3 -m research_radar init --preset blank --interactive
 
 然后用任意文本编辑器打开 `research-radar.config.json`。首次运行不需要 API key：Crossref、arXiv 和配置的 RSS/官方网页可以组成真实采集基线。OpenAlex 和更稳定的 Semantic Scholar 使用体验可按需补充密钥。
 
+不熟悉命令行时，可以在 Codex 中打开包含 `README.md`、`pyproject.toml` 和 `research_radar/` 的项目文件夹，直接用自然语言让 Codex 初始化、修改配置和生成日报。可复制的完整指令、手动操作步骤以及“个人配置和内置模板的区别”见[快速开始](docs/QUICKSTART.md)。
+
 ## 如何按自己的研究方向配置
 
 你可以在 `research-radar.config.json` 中修改：
