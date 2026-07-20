@@ -9,6 +9,17 @@
   },
   "windows": {"new_days": 30, "influence_days": 365},
   "selection": {"daily_limit": 5, "focus_quota": 3, "minimum_score": 35, "deep_analysis_threshold": 72, "venue_mode": "prefer"},
+  "report": {
+    "writing_requirements": ["只陈述可见摘要和元数据，不推断全文结论。", "每项保留来源、DOI和原始链接；来源限流时保留部分覆盖标记。"],
+    "item_fields": ["evidence", "authors", "published_date", "venue", "matched_track", "score", "sources", "doi", "url", "abstract"],
+    "abstract_limit": 900,
+    "style": {
+      "intro": "面向研究团队的简洁日报：先说明来源覆盖，再呈现可追溯的入选内容。",
+      "requirements_heading": "撰写要求",
+      "selection_heading": "今日入选",
+      "analysis_heading": "首篇分析边界"
+    }
+  },
   "score_weights": {"relevance": 40, "source_quality": 25, "recency": 15, "impact": 10, "novelty": 10},
   "context_keywords": ["artificial intelligence"],
   "exclusion_keywords": ["sponsored", "advertorial"],
@@ -29,5 +40,5 @@
   },
   "delivery": {"default": "local", "feishu": {"user_id_env": "FEISHU_USER_ID", "command": "lark-cli"}},
   "paths": {"briefs_dir": "10-daily-briefs", "topics_dir": "20-topics", "runs_dir": "90-system/runs", "ledger_file": "90-system/index/recommendation-ledger.jsonl"},
-  "network": {"timeout_seconds": 20, "max_retries": 1, "user_agent": "research-radar/0.1.0 (public academic research tool)"}
+  "network": {"timeout_seconds": 20, "max_retries": 1, "user_agent": "research-radar/0.1.1 (public academic research tool)"}
 }

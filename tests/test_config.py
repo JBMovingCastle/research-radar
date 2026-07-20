@@ -45,6 +45,23 @@ class ConfigTests(unittest.TestCase):
             with self.assertRaisesRegex(ConfigError, "at least one query"):
                 load_config(path)
 
+    def test_accepts_custom_daily_limit_and_rejects_invalid_report_fields(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            path = initialize(Path(temp), preset="blank")
+            data = json.loads(path.read_text(encoding="utf-8"))
+            data["selection"]["daily_limit"] = 8
+            path.write_text(json.dumps(data), encoding="utf-8")
+            load_config(path)
+            data["selection"]["daily_limit"] = 21
+            path.write_text(json.dumps(data), encoding="utf-8")
+            with self.assertRaisesRegex(ConfigError, "1 to 20"):
+                load_config(path)
+            data["selection"]["daily_limit"] = 5
+            data["report"]["item_fields"] = ["not-a-field"]
+            path.write_text(json.dumps(data), encoding="utf-8")
+            with self.assertRaisesRegex(ConfigError, "report.item_fields"):
+                load_config(path)
+
     def test_rejects_invalid_timezone(self) -> None:
         with tempfile.TemporaryDirectory() as temp:
             path = initialize(Path(temp), preset="blank")

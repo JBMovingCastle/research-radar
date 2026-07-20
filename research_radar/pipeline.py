@@ -223,6 +223,7 @@ def run_daily(
             selected=selected,
             source_results=results,
             deep_threshold=float(config["selection"]["deep_analysis_threshold"]),
+            report=config.get("report", {}),
         ),
         encoding="utf-8",
     )

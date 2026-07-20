@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1 — 2026-07-21
+
+- Kept the default daily selection at 5 while allowing users to configure 1–20 items.
+- Added editable report requirements, item-field order, abstract length, opening note, and section headings in `report` configuration.
+- Removed presentation materials from the public default branch.
+
 ## 0.1.0 — 2026-07-21
 
 - Added no-key first-run configuration and interactive initialization.

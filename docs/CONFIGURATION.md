@@ -2,6 +2,37 @@
 
 配置文件是仓库根目录的 `research-radar.config.json`。JSON 不支持注释；修改后用 `python3 -m research_radar validate` 检查。
 
+## 每日数量与报告写法
+
+默认每天最多选取 5 项；`selection.daily_limit` 可由使用者设置为 1 到 20。报告的展示顺序、摘要长度、章节标题、开场说明和写作要求可直接通过 `report` 修改：
+
+```json
+{
+  "selection": {"daily_limit": 8},
+  "report": {
+    "writing_requirements": [
+      "优先面向项目组决策，保留事实与来源。",
+      "不把摘要级信息扩写为已验证结论。"
+    ],
+    "item_fields": ["authors", "venue", "doi", "url", "abstract"],
+    "abstract_limit": 500,
+    "style": {
+      "intro": "面向项目例会的速览，重点保留可行动线索。",
+      "requirements_heading": "编辑要求",
+      "selection_heading": "本期重点",
+      "analysis_heading": "阅读边界"
+    }
+  }
+}
+```
+
+- `writing_requirements`：会显示在日报的“撰写要求”区，供使用者直接编辑并保留在输出中。
+- `item_fields`：控制每项内容的字段和顺序；可用值为 `evidence`、`authors`、`published_date`、`venue`、`matched_track`、`score`、`sources`、`doi`、`url`、`full_text_url`、`abstract`。
+- `abstract_limit`：每项可见摘要最多保留 0 到 1500 个字符；设为 `0` 时不输出摘要正文。
+- `style`：控制开场说明和三个章节标题；不设置时使用默认中文标题。
+
+这部分只能控制模板和表达要求，不会让系统自动获得付费全文或把摘要级内容升级为全文结论。若把每日数量调大，也应同时考虑阅读负担和飞书消息长度。
+
 ## 研究方向与关键词
 
 ```json

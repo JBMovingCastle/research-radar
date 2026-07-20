@@ -15,6 +15,20 @@
     "deep_analysis_threshold": 72,
     "venue_mode": "prefer"
   },
+  "report": {
+    "writing_requirements": [
+      "每条保留论文事实、来源、DOI和原始链接；不把摘要级信息写成全文结论。",
+      "优先说明与CI3研究方向的关联；接口失败或限流时保留部分覆盖标记。"
+    ],
+    "item_fields": ["evidence", "authors", "published_date", "venue", "matched_track", "score", "sources", "doi", "url", "abstract"],
+    "abstract_limit": 900,
+    "style": {
+      "intro": "面向CI3组内讨论的每日研究线索：优先保留与当日方向直接相关、且可追溯的论文事实。",
+      "requirements_heading": "本期撰写要求",
+      "selection_heading": "今日入选",
+      "analysis_heading": "首篇分析边界"
+    }
+  },
   "score_weights": {
     "relevance": 40,
     "source_quality": 25,
@@ -100,6 +114,6 @@
   "network": {
     "timeout_seconds": 20,
     "max_retries": 1,
-    "user_agent": "research-radar/0.1.0 (public academic research tool)"
+    "user_agent": "research-radar/0.1.1 (public academic research tool)"
   }
 }

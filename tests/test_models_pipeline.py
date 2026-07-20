@@ -109,6 +109,32 @@ class ModelPipelineTests(unittest.TestCase):
             ledger = root / "90-system/index/recommendation-ledger.jsonl"
             self.assertEqual(len(ledger.read_text(encoding="utf-8").splitlines()), 1)
 
+    def test_report_template_fields_and_requirements_are_configurable(self) -> None:
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            config_path = initialize(root, preset="blank")
+            config = json.loads(config_path.read_text(encoding="utf-8"))
+            config["report"] = {
+                "writing_requirements": ["保留论文链接。"],
+                "item_fields": ["authors", "doi", "abstract"],
+                "abstract_limit": 20,
+                "style": {
+                    "intro": "面向例会的简短速览。",
+                    "requirements_heading": "编辑规则",
+                    "selection_heading": "本期重点",
+                    "analysis_heading": "证据边界",
+                },
+            }
+            config_path.write_text(json.dumps(config), encoding="utf-8")
+            result = run_daily(config_path, date="2026-07-21", adapters=(GoodAdapter,))
+            brief = (root / result["brief_path"]).read_text(encoding="utf-8")
+            self.assertIn("面向例会的简短速览。", brief)
+            self.assertIn("## 编辑规则", brief)
+            self.assertIn("保留论文链接。", brief)
+            self.assertIn("## 本期重点", brief)
+            self.assertIn("## 证据边界", brief)
+            self.assertNotIn("- **评分：**", brief)
+
 
 if __name__ == "__main__":
     unittest.main()

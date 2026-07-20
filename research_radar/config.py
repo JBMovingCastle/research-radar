@@ -14,6 +14,32 @@ from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
 CONFIG_NAME = "research-radar.config.json"
 WEEKDAYS = {"monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday"}
 ISSN_RE = re.compile(r"^\d{4}-[\dXx]{4}$")
+REPORT_ITEM_FIELDS = {
+    "evidence",
+    "authors",
+    "published_date",
+    "venue",
+    "matched_track",
+    "score",
+    "sources",
+    "doi",
+    "url",
+    "full_text_url",
+    "abstract",
+}
+DEFAULT_REPORT_ITEM_FIELDS = (
+    "evidence",
+    "authors",
+    "published_date",
+    "venue",
+    "matched_track",
+    "score",
+    "sources",
+    "doi",
+    "url",
+    "abstract",
+)
+REPORT_STYLE_FIELDS = {"intro", "requirements_heading", "selection_heading", "analysis_heading"}
 
 
 class ConfigError(ValueError):
@@ -90,6 +116,27 @@ def validate_config(config: dict[str, Any], root: Path) -> None:
     limit = selection.get("daily_limit")
     if not isinstance(limit, int) or not 1 <= limit <= 20:
         raise ConfigError("selection.daily_limit must be an integer from 1 to 20.")
+    report = config.get("report", {})
+    if not isinstance(report, dict):
+        raise ConfigError("report must be an object.")
+    requirements = report.get("writing_requirements", [])
+    if not isinstance(requirements, list) or any(not isinstance(item, str) or not item.strip() for item in requirements):
+        raise ConfigError("report.writing_requirements must be a list of non-empty strings.")
+    item_fields = report.get("item_fields", list(DEFAULT_REPORT_ITEM_FIELDS))
+    if not isinstance(item_fields, list) or not item_fields or any(field not in REPORT_ITEM_FIELDS for field in item_fields):
+        raise ConfigError(f"report.item_fields must be a non-empty list chosen from {sorted(REPORT_ITEM_FIELDS)}.")
+    if len(item_fields) != len(set(item_fields)):
+        raise ConfigError("report.item_fields must not repeat fields.")
+    abstract_limit = report.get("abstract_limit", 900)
+    if not isinstance(abstract_limit, int) or not 0 <= abstract_limit <= 1500:
+        raise ConfigError("report.abstract_limit must be an integer from 0 to 1500.")
+    style = report.get("style", {})
+    if not isinstance(style, dict) or any(key not in REPORT_STYLE_FIELDS for key in style):
+        raise ConfigError(f"report.style must only define {sorted(REPORT_STYLE_FIELDS)}.")
+    if any(not isinstance(value, str) or len(value) > 500 for value in style.values()):
+        raise ConfigError("report.style values must be strings of at most 500 characters.")
+    if any(not str(style[key]).strip() for key in ("requirements_heading", "selection_heading", "analysis_heading") if key in style):
+        raise ConfigError("report.style section headings must be non-empty.")
     weights = config.get("score_weights", {})
     required_weights = {"relevance", "source_quality", "recency", "impact", "novelty"}
     if set(weights) != required_weights or any(not isinstance(weights[key], (int, float)) or weights[key] < 0 for key in required_weights):
