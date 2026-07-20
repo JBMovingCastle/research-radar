@@ -22,7 +22,7 @@ class HttpResponse:
 
 
 class HttpClient:
-    def __init__(self, timeout: int = 20, max_retries: int = 1, user_agent: str = "research-radar/0.1.1") -> None:
+    def __init__(self, timeout: int = 20, max_retries: int = 1, user_agent: str = "research-radar/0.1.2") -> None:
         self.timeout = timeout
         self.max_retries = max_retries
         self.user_agent = user_agent

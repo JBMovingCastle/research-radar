@@ -2,6 +2,7 @@ name: offline-tests
 
 on:
   push:
+    branches: [main]
   pull_request:
 
 permissions:
@@ -19,6 +20,6 @@ jobs:
         run: python3 -m unittest discover -s tests -v
       - name: Validate templates
         run: |
-          cp configs/ci3.json research-radar.config.json
+          python3 -m research_radar init --destination . --preset ci3
           python3 -m research_radar validate
           python3 -m research_radar doctor

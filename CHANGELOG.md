@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.2 — 2026-07-21
+
+- Fixed GitHub Actions template validation by initializing a fresh CI directory before running `doctor`.
+- Limited GitHub Actions to `main` branch pushes and pull requests, avoiding duplicate tag-triggered notifications.
+- Corrected the configurable-report regression test fixture.
+
 ## 0.1.1 — 2026-07-21
 
 - Kept the default daily selection at 5 while allowing users to configure 1–20 items.

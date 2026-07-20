@@ -40,5 +40,5 @@
   },
   "delivery": {"default": "local", "feishu": {"user_id_env": "FEISHU_USER_ID", "command": "lark-cli"}},
   "paths": {"briefs_dir": "10-daily-briefs", "topics_dir": "20-topics", "runs_dir": "90-system/runs", "ledger_file": "90-system/index/recommendation-ledger.jsonl"},
-  "network": {"timeout_seconds": 20, "max_retries": 1, "user_agent": "research-radar/0.1.1 (public academic research tool)"}
+  "network": {"timeout_seconds": 20, "max_retries": 1, "user_agent": "research-radar/0.1.2 (public academic research tool)"}
 }

@@ -114,6 +114,6 @@
   "network": {
     "timeout_seconds": 20,
     "max_retries": 1,
-    "user_agent": "research-radar/0.1.1 (public academic research tool)"
+    "user_agent": "research-radar/0.1.2 (public academic research tool)"
   }
 }

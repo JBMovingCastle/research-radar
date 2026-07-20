@@ -114,6 +114,8 @@ class ModelPipelineTests(unittest.TestCase):
             root = Path(temp)
             config_path = initialize(root, preset="blank")
             config = json.loads(config_path.read_text(encoding="utf-8"))
+            config["context_keywords"] = ["construction"]
+            config["tracks"][0]["keywords"] = ["robot"]
             config["report"] = {
                 "writing_requirements": ["保留论文链接。"],
                 "item_fields": ["authors", "doi", "abstract"],
