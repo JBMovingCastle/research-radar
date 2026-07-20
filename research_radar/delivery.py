@@ -44,7 +44,7 @@ def deliver(config_path: str | Path, date: str, channel: str, *, force: bool = F
         if len(message) > 12000:
             raise ConfigError("Feishu message exceeds the 12,000-character safety limit.")
         completed = subprocess.run(
-            [command, "im", "+messages-send", "--as", "bot", "--user-id", user_id, "--markdown", message, "--idempotency-key", f"research-radar-{date}"],
+            [command, "im", "+messages-send", "--as", "bot", "--user-id", user_id, f"--markdown={message}", "--idempotency-key", f"research-radar-{date}"],
             capture_output=True,
             text=True,
             check=False,
